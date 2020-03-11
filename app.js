@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const mongoose = require('mongoose')
+
 
 const indexRouter = require('./routes/index');
 const movieRouter = require('./routes/movie');
@@ -13,10 +15,13 @@ const app = express();
 // DB Connection
 
 const db = require('./helper/db')();
-
+const config = require('./config');
+app.set('api_secret_key',config.api_secret_key);
 // view engine setup
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+mongoose.set('useCreateIndex', true);
 
 app.use(logger('dev'));
 app.use(express.json());

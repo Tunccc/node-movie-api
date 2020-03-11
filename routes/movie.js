@@ -4,7 +4,11 @@ const Movie = require('../models/Movie')
 /* GET users listing. */
 
 // imdb score Top10 List
-
+router.get('/deneme', (req,res) => {
+  res.json({
+    status: true
+  })
+})
 
 router.get('/getAll', (req,res)=>{
   const promise = Movie.aggregate([
