@@ -16,6 +16,9 @@ const app = express();
 
 const db = require('./helper/db')();
 const config = require('./config');
+
+//middleware
+const verifyToken = require('./middlewares/verify-token')
 app.set('api_secret_key',config.api_secret_key);
 // view engine setup
 
@@ -30,6 +33,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/api',verifyToken);
 app.use('/api/movie', movieRouter);
 app.use('/api/directors', directorRouter);
 
