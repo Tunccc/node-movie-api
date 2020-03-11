@@ -4,8 +4,10 @@ const Movie = require('../models/Movie')
 /* GET users listing. */
 
 // imdb score Top10 List
+
+
 router.get('/getAll', (req,res)=>{
-  const promise = Movie.find({}).limit(10).sort({imdb_score:1});
+  const promise = Movie.find({});
   promise.then((data)=>{
     res.json(data);
   }).catch((err)=>{
@@ -14,7 +16,7 @@ router.get('/getAll', (req,res)=>{
 })
 
 router.get('/getAll', (req,res)=>{
-  const promise = Movie.find({});
+  const promise = Movie.find({}).limit(10).sort({imdb_score:1});
   promise.then((data)=>{
     res.json(data);
   }).catch((err)=>{
@@ -77,9 +79,10 @@ router.delete('/getAll/:movie_id',(req,res,next)=>{
 });
 
 router.post('/post', function(req, res, next) {
-  const {title, imdb_score,category,country, year}= req.body;
+  const {director_id,title, imdb_score,category,country, year}= req.body;
   
   const movie = new Movie({
+    director_id,
     title,
     imdb_score,
     category,
